@@ -16,10 +16,12 @@ class ViewController: UIViewController, UITableViewDelegate ,UITableViewDataSour
     //outlets
     @IBOutlet weak var tableViewOutlet: UITableView!
     @IBOutlet weak var addFieldOutlet: UITextField!
+    @IBOutlet weak var editFieldOutlet: UITextField!
     
     
     var defaults = UserDefaults.standard
     var cart = [String]()
+    var editInt = 0
     //alert controllers
     var alert: UIAlertController!
     var okAction: UIAlertAction!
@@ -70,6 +72,11 @@ class ViewController: UIViewController, UITableViewDelegate ,UITableViewDataSour
         tableViewOutlet.reloadData()
     }
     
+    @IBAction func editAction(_ sender: Any) {
+        cart[editInt] = "\(editFieldOutlet.text!)"
+        tableViewOutlet.reloadData()
+    }
+    
     
     
     
@@ -85,19 +92,17 @@ class ViewController: UIViewController, UITableViewDelegate ,UITableViewDataSour
     }
     //cell they selected
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        editInt = indexPath.row
+        print(indexPath.row)
         let cell = tableView.cellForRow(at: indexPath)
         if(cell?.accessoryType == .checkmark){
             cell?.accessoryType = .none
+            print("removing checkmark")
         } else {
-            cell!.accessoryType = .checkmark
+            cell?.accessoryType = .checkmark
+            print("adding checkmark")
         }
-        tableView.reloadData()
     }
-//    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-//        let cell = tableView.cellForRow(at: indexPath)
-//        cell!.accessoryType = .none
-//        tableView.reloadData()
-//    }
     
     //deleting if user swipes left
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
