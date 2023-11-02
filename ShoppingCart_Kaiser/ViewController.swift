@@ -73,23 +73,32 @@ class ViewController: UIViewController, UITableViewDelegate ,UITableViewDataSour
     
     
     
-    
+    // num of cells
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cart.count
     }
-    
+    // pops each cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell")!
-        cell.accessoryType = .checkmark
         cell.textLabel?.text = "\(cart[indexPath.row])"
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-//       // let cell = tableView.dequeueReusableCell(withIdentifier: "myCell")
-//        .accessoryType = .checkmark
-//        tableView.reloadData()
+    //cell they selected
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        if(cell?.accessoryType == .checkmark){
+            cell?.accessoryType = .none
+        } else {
+            cell!.accessoryType = .checkmark
+        }
+        tableView.reloadData()
     }
+//    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+//        let cell = tableView.cellForRow(at: indexPath)
+//        cell!.accessoryType = .none
+//        tableView.reloadData()
+//    }
+    
     //deleting if user swipes left
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
