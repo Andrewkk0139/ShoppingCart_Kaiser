@@ -74,6 +74,7 @@ class ViewController: UIViewController, UITableViewDelegate ,UITableViewDataSour
     
     @IBAction func editAction(_ sender: Any) {
         cart[editInt] = "\(editFieldOutlet.text!)"
+        editFieldOutlet.text = ""
         tableViewOutlet.reloadData()
     }
     
